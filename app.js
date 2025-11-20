@@ -1,10 +1,9 @@
-// Pastikan modal tertutup di awal
+
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   modal.classList.remove("show");
 });
 
-// Elemen penting
 const loginScreen = document.getElementById("loginScreen");
 const appContent = document.getElementById("appContent");
 const emailInput = document.getElementById("emailInput");
@@ -16,7 +15,6 @@ const loginBtn = document.getElementById("loginBtn");
 const guestBtn = document.getElementById("guestBtn");
 const navButtons = document.querySelectorAll(".nav-btn");
 
-// Login
 loginBtn.addEventListener("click", () => {
   const email = emailInput.value.trim();
   if (!email) return alert("Masukkan email terlebih dahulu!");
@@ -36,14 +34,12 @@ function startApp(email) {
   userEmail.textContent = email;
 }
 
-// Logout
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("userEmail");
   appContent.style.display = "none";
   loginScreen.style.display = "flex";
 });
 
-// Navigasi
 navButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     navButtons.forEach((b) => b.classList.remove("active"));
@@ -60,7 +56,6 @@ function showView(view) {
 
   document.getElementById(view + "View").style.display = "block";
 
-  // RESET KONSUL setiap pindah halaman
   const konsulInput = document.getElementById("konsulInput");
   const konsulResult = document.getElementById("konsulResult");
   if (konsulInput) konsulInput.value = "";
@@ -69,10 +64,6 @@ function showView(view) {
   if (view === "quiz") tampilkanQuiz();
 }
 
-
-// ============================
-// TIPS BELAJAR
-// ============================
 const tips = [
   { judul: "Atur Jadwal Belajarmu dengan Rapi", isi: "Gunakan planner atau aplikasi kalender agar tidak keteteran." },
   { judul: "Gunakan Metode Pomodoro", isi: "Belajar 25 menit fokus, istirahat 5 menit, ulangi beberapa kali." },
@@ -104,9 +95,6 @@ tips.forEach((t) => {
   allTipsList.appendChild(c2);
 });
 
-// ============================
-// MODIFIKASI BERANDA (opsional, bisa berbeda dari tips)
-// ============================
 const berandaTips = [
   { judul: "Atur Jadwal Belajarmu dengan Rapi", isi: "Gunakan planner atau aplikasi kalender agar lebih teratur." },
   { judul: "Fokus di Sesi Belajar", isi: "Matikan ponsel dan gangguan untuk fokus maksimal." },
@@ -114,18 +102,13 @@ const berandaTips = [
   { judul: "Motivasi Diri", isi: "Tetapkan tujuan kecil setiap hari agar tetap semangat." },
 ];
 
-tipsPreview.innerHTML = ''; // kosongkan dulu card lama di beranda
+tipsPreview.innerHTML = ''; 
 berandaTips.forEach((t) => {
   const c = document.createElement("div");
   c.className = "card";
   c.innerHTML = `<h3>${t.judul}</h3><p>${t.isi}</p>`;
   tipsPreview.appendChild(c);
 });
-
-
-// ============================
-// QUIZ BELAJAR EFEKTIF (15 SOAL)
-// ============================
 
 const quiz = [
   { tanya: 'Berapa lama waktu ideal satu sesi belajar efektif menurut metode Pomodoro?', opsi: ['10 menit', '25 menit', '45 menit', '1 jam'], benar: 1 },
@@ -147,16 +130,15 @@ const quiz = [
 
 function tampilkanQuiz() {
   const quizArea = document.getElementById('quizArea');
-  quizArea.innerHTML = ''; // bersihkan tampilan sebelumnya
+  quizArea.innerHTML = ''; 
 
   let skor = 0;
   let indeks = 0;
 
   function tampilSoal() {
-    quizArea.innerHTML = ''; // kosongkan area quiz
+    quizArea.innerHTML = ''; 
 
     if (indeks >= quiz.length) {
-      // semua soal sudah dijawab
       const hasil = document.createElement('div');
       hasil.className = 'quiz-result';
 
@@ -207,7 +189,6 @@ function tampilkanQuiz() {
     `;
     quizArea.appendChild(box);
 
-    // Event submit form
     const form = document.getElementById('formSoal');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -222,9 +203,6 @@ function tampilkanQuiz() {
   tampilSoal();
 }
 
-// ============================
-// KONSULTASI INTERAKTIF
-// ============================
 document.getElementById("konsulBtn").addEventListener("click", () => {
   const input = document.getElementById("konsulInput").value.trim().toLowerCase();
   const output = document.getElementById("konsulResult");
@@ -234,7 +212,6 @@ document.getElementById("konsulBtn").addEventListener("click", () => {
     return;
   }
 
-  // Daftar keyword dan saran
   const saranList = [
     { keywords: ["susah fokus", "tidak fokus", "gampang terdistraksi"], saran: "🧠 Coba belajar di tempat tenang, matikan HP, dan gunakan timer Pomodoro." },
     { keywords: ["malas", "tidak semangat", "menunda"], saran: "💪 Bagi tugas menjadi kecil, beri reward setelah selesai, dan buat jadwal rutin." },
@@ -243,7 +220,6 @@ document.getElementById("konsulBtn").addEventListener("click", () => {
     { keywords: ["cemas", "stress", "panik"], saran: "🧘 Coba tarik napas dalam-dalam, istirahat sebentar, dan buat target belajar realistis." },
   ];
 
-  // Cari saran berdasarkan keyword
   let found = false;
   for (const item of saranList) {
     if (item.keywords.some(k => input.includes(k))) {
@@ -253,8 +229,8 @@ document.getElementById("konsulBtn").addEventListener("click", () => {
     }
   }
 
-  // Kalau tidak ada keyword yang cocok, tampilkan jawaban default
   if (!found) {
     output.innerHTML = "<p>🤔 <b>Saran umum:</b> Coba istirahat cukup, buat jadwal belajar, gunakan metode Pomodoro, dan fokus secara bertahap. Tetap semangat!</p>";
   }
 });
+
